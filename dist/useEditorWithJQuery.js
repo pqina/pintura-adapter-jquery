@@ -7,40 +7,40 @@ const c = "pintura", D = (o, i) => {
     };
     return;
   }
-  const E = (t) => !t.length || typeof t[0] == "object", b = (t, n) => {
-    const e = Object.getOwnPropertyDescriptor(t, n);
-    return e ? typeof e.get < "u" : !1;
-  }, m = (t, n) => {
-    const e = Object.getOwnPropertyDescriptor(t, n);
-    return e ? typeof e.set < "u" : !1;
-  }, w = (t, n) => typeof t[n] == "function", p = /* @__PURE__ */ new Map(), a = (t) => function(...n) {
-    const e = [], O = this.each(function() {
-      if (E(n)) {
-        const u = t(this, n[0]), g = y(u, this);
+  const E = (t) => !t.length || typeof t[0] == "object", b = (t, e) => {
+    const n = Object.getOwnPropertyDescriptor(t, e);
+    return n ? typeof n.get < "u" : !1;
+  }, w = (t, e) => {
+    const n = Object.getOwnPropertyDescriptor(t, e);
+    return n ? typeof n.set < "u" : !1;
+  }, m = (t, e) => typeof t[e] == "function" && !/^before|after|will/.test(e), f = /* @__PURE__ */ new Map(), a = (t) => function(...e) {
+    const n = [], O = this.each(function() {
+      if (E(e)) {
+        const u = t(this, e[0]), g = y(u, this);
         u.on("destroy", () => {
-          g.forEach((j) => j()), p.delete(this);
-        }), p.set(this, u);
+          g.forEach((j) => j()), f.delete(this);
+        }), f.set(this, u);
         return;
       }
-      const r = p.get(this);
+      const r = f.get(this);
       if (!r)
         return;
-      const s = n[0], f = n.concat().slice(1);
-      if (w(r, s)) {
-        e.push(r[s].apply(r, f));
+      const s = e[0], p = e.concat().slice(1);
+      if (m(r, s)) {
+        n.push(r[s].apply(r, p));
         return;
       }
-      if (m(r, s) && f.length) {
-        r[s] = f[0];
+      if (w(r, s) && p.length) {
+        r[s] = p[0];
         return;
       }
       if (b(r, s)) {
-        e.push(r[s]);
+        n.push(r[s]);
         return;
       }
       console.warn("$()." + c + '("' + s + '") is an unknown property or method.');
     });
-    return e.length ? this.length === 1 ? e[0] : e : O;
+    return n.length ? this.length === 1 ? n[0] : n : O;
   };
   o.fn[c] = a(h), o.fn[c + "Default"] = a(d), Object.keys(i).forEach((t) => o.fn[c][t] = i[t]);
 };
