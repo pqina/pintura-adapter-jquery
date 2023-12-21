@@ -29,7 +29,8 @@ export default ($, editorModule) => {
         return descriptor ? typeof descriptor.set !== 'undefined' : false;
     };
 
-    const isMethod = (obj, key) => typeof obj[key] === 'function';
+    const isMethod = (obj, key) =>
+        typeof obj[key] === 'function' && !/^before|after|will/.test(key);
 
     // Setup plugin
     const elementEditorMap = new Map();
